@@ -14,6 +14,21 @@
   <script src="../NewRelic.safariextension/newrelic.js"></script>
 
   <!-- include spec files here... -->
+  <script type="text/template" id="xml-response">
+    <?xml version="1.0" encoding="UTF-8"?>
+    <threshold-values type="array">
+      <threshold_value threshold_value="3" begin_time="2011-09-19 06:27:59" metric_value="0.5" end_time="2011-09-19 06:28:32" name="Apdex" formatted_metric_value="0.96 [1.0]*"/>
+      <threshold_value threshold_value="1" begin_time="2011-09-19 06:27:59" metric_value="25.6" end_time="2011-09-19 06:28:32" name="Application Busy" formatted_metric_value="25.6%"/>
+      <threshold_value threshold_value="1" begin_time="2011-09-19 06:27:59" metric_value="0.0" end_time="2011-09-19 06:28:32" name="Error Rate" formatted_metric_value="0.05%"/>
+      <threshold_value threshold_value="1" begin_time="2011-09-19 06:27:59" metric_value="7.3" end_time="2011-09-19 06:28:32" name="Throughput" formatted_metric_value="345 rpm"/>
+      <threshold_value threshold_value="1" begin_time="2011-09-19 06:27:59" metric_value="31.6" end_time="2011-09-19 06:28:32" name="CPU" formatted_metric_value="31.6%"/>
+      <threshold_value threshold_value="1" begin_time="2011-09-19 06:27:59" metric_value="2109" end_time="2011-09-19 06:28:32" name="Response Time" formatted_metric_value="150 ms"/>
+      <threshold_value threshold_value="1" begin_time="2011-09-19 06:27:59" metric_value="0.0" end_time="2011-09-19 06:28:32" name="Errors" formatted_metric_value="0.4 epm"/>
+      <threshold_value threshold_value="1" begin_time="2011-09-19 06:27:59" metric_value="292" end_time="2011-09-19 06:28:32" name="Memory" formatted_metric_value="292 MB"/>
+      <threshold_value threshold_value="1" begin_time="2011-09-19 06:27:59" metric_value="8.2" end_time="2011-09-19 06:28:32" name="DB" formatted_metric_value="8.2%"/>
+    </threshold-values>
+  </script>
+  
   <script type="text/javascript" src="spec/newrelic-spec.js"></script>
 
 </head>
