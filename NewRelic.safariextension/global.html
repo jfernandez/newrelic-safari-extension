@@ -4,56 +4,25 @@
 <script src="backbone-min.js" type="text/javascript"></script>
 <script src="newrelic.js" type="text/javascript"></script>
 <script>
+  var app = new Application({
+    apiKey: safari.extension.secureSettings.apiKey,
+    accountId: safari.extension.settings.accountId,
+    appId: safari.extension.settings.appId
+  });
   
-  setInterval(callApi, 60000);
+  app.bind('change', function() {
+    safari.extension.settings.metrics = app.metrics();
+    safari.extension.settings.apiKey = app.get("apiKey");
+    safari.extension.settings.accountId = app.get("accountId");
+    safari.extension.settings.appId = app.get("appId");
+  });
   
-  function callApi() {
-    if(settingsMissing()) return;
-
-    var url = "https://rpm.newrelic.com/accounts/" + safari.extension.settings.accountId + "/applications/" + safari.extension.settings.appId + "/threshold_values.xml";
-
-    $.ajax({
-      type: "GET",
-      url: url,
-      dataType: 'xml',
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader("x-api-key", safari.extension.secureSettings.apiKey);
-      },
-      success: xmlParser
-    });
-    
-    return true;
-  }
+  app.fetch();
+  setInterval(function() { app.fetch() }, 60000);
   
-  function settingsMissing() {
-    if(typeof safari.extension.secureSettings.apiKey == "undefined" || safari.extension.secureSettings.apiKey == "") return true;
-    if(typeof safari.extension.settings.accountId == "undefined" || safari.extension.settings.accountId == "") return true;
-    if(typeof safari.extension.settings.appId == "undefined" || safari.extension.settings.appId == "") return true;
-    
-    return false;
-  }
-  
-  function xmlParser(xml) {
-    var metrics = safari.extension.settings.metrics || {}
-
-    $(xml).find("threshold_value").each(function() {
-      var formattedValue = $(this).attr('formatted_metric_value');
-      switch($(this).attr('name')) {
-      case "Apdex":
-        metrics['apdex'] = formattedValue;
-        break;
-      case "Throughput":
-        metrics['throughput'] = formattedValue;
-        break;
-      case "Errors":
-        metrics['errors'] = formattedValue;
-        break;
-      case "Response Time":
-        metrics['responseTime'] = formattedValue;
-        break;
-      }
-    });
-
-    safari.extension.settings.metrics = metrics;
+  function updateAuth(auth) {
+    app.resetMetrics();
+    app.set(auth);
+    app.fetch();
   }
 </script>

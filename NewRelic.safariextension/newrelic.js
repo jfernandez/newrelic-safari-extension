@@ -12,8 +12,12 @@
       host:         "https://rpm.newrelic.com"
     },
     
+    rootUrl: function() {
+      return this.get("host") + "/accounts/" + this.get("accountId") + "/applications/" + this.get("appId");
+    },
+    
     url: function() {
-      return this.get("host") + "/accounts/" + this.get("accountId") + "/applications/" + this.get("appId") + "/threshold_values.xml?api_key=" + this.get("apiKey");
+      return this.rootUrl() + "/threshold_values.xml?api_key=" + this.get("apiKey");
     },
     
     parse: function(response) {
@@ -38,14 +42,32 @@
       return metrics;
     },
     
-    hasCredentials: function() {
-      return (this.get("accountId").length > 0 && this.get("appId").length > 0 && this.get("apiKey").length > 0);
+    metrics: function() {
+      return {
+        apdex: this.get("apdex"),
+        throughput: this.get("throughput"),
+        errorRate: this.get("errorRate"),
+        responseTime: this.get("responseTime")
+      }
+    },
+    
+    resetMetrics: function() {
+      this.set({
+        apdex: "-",
+        throughput: "-",
+        errorRate: "-",
+        responseTime: "-"
+      });
+    },
+    
+    missingAuth: function() {
+      return (this.get("accountId").length == 0 || this.get("appId").length == 0 || this.get("apiKey").length == 0);
     }
   });
   
   window.ApplicationView = Backbone.View.extend({
-    tagName: 'ul',
-    id: 'metrics',
+    tagName: 'div',
+    id: 'metrics-container',
     
     initialize: function() {
       _.bindAll(this, 'render');
