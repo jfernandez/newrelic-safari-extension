@@ -6,5 +6,7 @@ To contribute:
 3. Click on the + icon in the lower left. Select 'Add Extension' and the 'NewRelic.safariextension' folder.
 4. Reload the extension from the Extension Builder window after modifying the source code.
 
+* To run the test suite open the SpecRunner.html file (test-js directory) in any browser.
+
 To learn more about Safari extensions, check out the Safari Extension Developer Guide:
 http://developer.apple.com/library/safari/#documentation/Tools/Conceptual/SafariExtensionGuide/Introduction/Introduction.html
