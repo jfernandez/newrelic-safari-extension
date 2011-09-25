@@ -1,0 +1,7 @@
+To contribute:
+
+1. Clone the repository: git clone git://github.com/jfernandez/newrelic-safari-extension.git
+1. Enable the Develop menu in the Safari advanced preferences.
+2. Open the Extension Builder from the Develop menu option.
+3. Click on the + icon in the lower left. Select 'Add Extension' and the 'NewRelic.safariextension' folder.
+4. Reload the extension from the Extension Builder window after modifying the source code.
